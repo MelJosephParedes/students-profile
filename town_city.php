@@ -27,10 +27,12 @@ class TownCity {
 }
 
 
-$town_id_add = $town_add->create($data);
+$town_add = $town_add->create($data);
 
-$town_id_edit = $town_edit->update($id, $data);
+$town_read = $town_read->read($data);
 
-$town_id_delete = $town_delete->delete($id);
+$town_edit = $town_edit->update($id, $data);
+
+$town_delete = $town_delete->delete($id);
 
 ?>

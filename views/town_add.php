@@ -10,7 +10,7 @@ class town_add{
     public function create($data) {
         try {
             // Prepare the SQL INSERT statement
-            $sql = "INSERT INTO students(name) VALUES(:name);";
+            $sql = "INSERT INTO town_city(name) VALUES(:name);";
             $stmt = $this->db->getConnection()->prepare($sql);
 
             // Bind values to placeholders

@@ -1,6 +1,6 @@
 <?php
 include_once("../db.php");
-include_once("../student.php");
+include_once("../town_city.php");
 
 $db = new Database();
 $connection = $db->getConnection();
@@ -17,8 +17,8 @@ $towncity = new TownCity($db);
 </head>
 <body>
     <!-- Include the header -->
-    <?php include('/templates/header.html'); ?>
-    <?php include('/includes/navbar.php'); ?>
+    <?php include('../templates/header.html'); ?>
+    <?php include('../includes/navbar.php'); ?>
 
     <div class="content">
     <h2>Town City Records</h2>
