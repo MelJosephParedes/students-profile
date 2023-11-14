@@ -1,10 +1,10 @@
 <?php
 include_once("../db.php");
-include_once("../town_city.php");
+include_once("../province.php");
 
 $db = new Database();
 $connection = $db->getConnection();
-$towncity = new TownCity($db);
+$province = new Province($db);
 
 ?>
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ $towncity = new TownCity($db);
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Town City Records</title>
+    <title>Province Records</title>
     <link rel="stylesheet" type="text/css" href="../css/styles.css">
 </head>
 <body>
@@ -21,7 +21,7 @@ $towncity = new TownCity($db);
     <?php include('../includes/navbar.php'); ?>
 
     <div class="content">
-    <h2>Town City Records</h2>
+    <h2>Province Records</h2>
     <table class="orange-theme">
         <thead>
             <tr>
@@ -32,7 +32,7 @@ $towncity = new TownCity($db);
             <!-- You'll need to dynamically generate these rows with data from your database -->
        
             <?php
-            $results = $towncity->getAll(); 
+            $results = $province->getAll(); 
             foreach ($results as $result) {
             ?>
             <tr>
@@ -49,7 +49,7 @@ $towncity = new TownCity($db);
         </tbody>
     </table>
         
-    <a class="button-link" href="town_add.php">Add City Record</a>
+    <a class="button-link" href="province_add.php">Add Province Record</a>
 
         </div>
         

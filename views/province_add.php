@@ -1,33 +1,33 @@
 <?php
 include_once("../db.php"); // Include the Database class file
-include_once("../town_city.php");
-include_once("../townCity_details.php");
+include_once("../province.php");
+include_once("../province_details.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $data = [    
     'name' => $_POST['name'],
     ];
 
-    // Instantiate the Database and TownCity classes
+    // Instantiate the Database and province classes
     $database = new Database();
-    $city = new TownCity($database);
-    $townCity_id = $city->create($data);
+    $province = new Province($database);
+    $province_id = $province->create($data);
     
-    if ($townCity_id) {
-        // townCity record successfully created
+    if ($province_id) {
+        // province record successfully created
         
-        // Retrieve townCity details from the form
-        $townCityDetailsData = [
-            'id' => $town_city_id, // Use the obtained townCity ID
+        // Retrieve province details from the form
+        $provinceDetailsData = [
+            'id' => $province_id, // Use the obtained province ID
             'name' => $_POST['name'],
             
-            // Other townCity details fields
+            // Other province details fields
         ];
 
         // Create province details linked to the province
-        $townCityDetails = new townCityDetails($database);
+        $provinceDetails = new provinceDetails($database);
         
-        if ($townCityDetails->create($townCityDetailsData)) {
+        if ($provinceDetails->create($provinceDetailsData)) {
             echo "Record inserted successfully.";
         } else {
             echo "Failed to insert the record.";

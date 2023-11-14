@@ -11,7 +11,7 @@ student_details -> id (PK, AI), student_id (int), contact_number, street, town_c
 
 To Dos:
 
-- CRUD of Province
+- CRUD of Province 
 - CRUD of Town City
 - Fix Edit of Student's Profile include table student_details
 - Fix Edit of Student's Profile use appropriate controls for gender and birthdate.
@@ -25,3 +25,5 @@ Using the skills you've learned from IM and DB2 create reports for this project
 -->
 - Add 3 types of Report in Menu Report
 - Modify index.php, create a chart using ChartJS (dashboard like)
+
+John Philip Beltran

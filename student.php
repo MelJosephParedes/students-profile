@@ -1,5 +1,6 @@
 <?php
 include_once("db.php"); // Include the file with the Database class
+include_once("student_details.php");
 
 class Student {
     private $db;

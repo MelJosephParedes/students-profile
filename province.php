@@ -20,11 +20,10 @@ class Province {
             throw $e; // Re-throw the exception for higher-level handling
         }
     }
-
     public function create($data) {
         try {
             // Prepare the SQL INSERT statement
-            $sql = "INSERT INTO province(name) VALUES(:name)";
+            $sql = "INSERT INTO province(name) VALUES(:name;";
             $stmt = $this->db->getConnection()->prepare($sql);
 
             // Bind values to placeholders
@@ -56,7 +55,7 @@ class Province {
             $stmt->bindValue(':id', $id);
             $stmt->execute();
 
-            // Fetch the student data as an associative array
+            // Fetch the towncity data as an associative array
             $studentData = $stmt->fetch(PDO::FETCH_ASSOC);
 
             return $studentData;
@@ -69,13 +68,14 @@ class Province {
     public function update($id, $data) {
         try {
             $sql = "UPDATE province SET
-                    name = :name
+                    name = :name,
                     WHERE id = :id";
 
             $stmt = $this->db->getConnection()->prepare($sql);
             // Bind parameters
             $stmt->bindValue(':id', $data['id']);
             $stmt->bindValue(':name', $data['name']);
+            
 
             // Execute the query
             $stmt->execute();
@@ -98,7 +98,7 @@ class Province {
             if ($stmt->rowCount() > 0) {
                 return true; // Record deleted successfully
             } else {
-                return false; // No records were deleted (student_id not found)
+                return false; // No records were deleted (towncity_id not found)
             }
         } catch (PDOException $e) {
             echo "Error: " . $e->getMessage();
@@ -106,18 +106,6 @@ class Province {
         }
     }
 
-    public function displayAll(){
-        try {
-            $sql = "SELECT * FROM province LIMIT 10"; // Modify the table name to match your database
-            $stmt = $this->db->getConnection()->prepare($sql);
-            $stmt->execute();
-            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
-            return $result;
-        } catch (PDOException $e) {
-            // Handle any potential errors here
-            echo "Error: " . $e->getMessage();
-            throw $e; // Re-throw the exception for higher-level handling
-        }
-    }
+
 }
 ?>
