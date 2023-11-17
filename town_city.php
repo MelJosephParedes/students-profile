@@ -1,6 +1,6 @@
 <?php
 include_once("db.php"); // Include the Database class file
-
+include_once("townCity_details.php");
 class TownCity {
     private $db;
 

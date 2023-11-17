@@ -1,6 +1,6 @@
 <?php
-include_once("../db.php");
-include_once("../province.php");
+require_once("../db.php");
+require_once("../province.php");
 
 $db = new Database();
 $connection = $db->getConnection();

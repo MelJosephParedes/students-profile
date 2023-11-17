@@ -92,7 +92,7 @@ class Student {
 
     public function delete($id) {
         try {
-            $sql = "DELETE FROM students WHERE id = :id";
+            $sql = "DELETE * FROM students WHERE id = :id";
             $stmt = $this->db->getConnection()->prepare($sql);
             $stmt->bindValue(':id', $id);
             $stmt->execute();
@@ -111,7 +111,9 @@ class Student {
 
     public function displayAll(){
         try {
-            $sql = "SELECT * FROM students LIMIT 10"; // Modify the table name to match your database
+            $sql = "SELECT students.id, students.student_number, students.first_name, students.last_name, students.middle_name, students.gender, students.birthday,
+                            student_details.student_id, student_details.contact_number, student_details.street, student_details.town_city, student_details.province, student_details.zip_code
+                            FROM students INNER JOIN student_details ON students.id = student_details.student_id LIMIT 10"; // Modify the table name to match your database
             $stmt = $this->db->getConnection()->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
@@ -179,16 +181,16 @@ class Student {
 }
 
 
-$student = new Student(new Database());
+//$student = new Student(new Database());
 
 // Test the create method
-$student_id = $student->testCreateStudent();
+//$student_id = $student->testCreateStudent();
 
 // Test the read method with the created student ID
-$student->testReadStudent($student_id);
+//$student->testReadStudent($student_id);
 
 // Test the update method with the created student ID and updated data
-$update_data = [
+/*$update_data = [
     'id' => $student_id,
     'student_number' => 'S67890',
     'first_name' => 'Alice',
@@ -201,5 +203,5 @@ $student->testUpdateStudent($student_id, $update_data);
 
 // Test the delete method with the created student ID
 $student->testDeleteStudent($student_id);
-
+*/
 ?>

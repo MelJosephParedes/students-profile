@@ -1,6 +1,6 @@
 <?php
-include_once("../db.php");
-include_once("../town_city.php");
+require_once("../db.php");
+require_once("../town_city.php");
 
 $db = new Database();
 $connection = $db->getConnection();

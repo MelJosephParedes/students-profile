@@ -2,9 +2,9 @@
         <h1>Menu</h1>
         <ul>
             <li><a href="/">Home</a></li>
-            <li><a href="/views/students.view.php">Students</a></li>
-            <li><a href="#">Town</a></li>
-            <li><a href="#">Province</a></li>
+            <li><a href="views/students.view.php">Students</a></li>
+            <li><a href="views/town.view.php">Town</a></li>
+            <li><a href="views/province.view.php">Province</a></li>
             <li class="dropdown">
                 <a href="#" class="dropbtn">Reports</a>
                 <div class="dropdown-content">

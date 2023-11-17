@@ -76,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" name="first_name" id="first_name" required>
 
         <label for="middle_name">Middle Name:</label>
-        <input type="text" name="middle_name" id="middle_name">
+        <input type="text" name="middle_name" id="middle_name">     
 
         <label for="last_name">Last Name:</label>
         <input type="text" name="last_name" id="last_name" required>

@@ -1,7 +1,7 @@
 <?php
 include_once("../db.php"); // Include the Database class file
 include_once("../student.php"); // Include the Student class file
-include_once("../student_details");
+include_once("../student_details.php");
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -10,6 +10,8 @@ if (isset($_GET['id'])) {
     $db = new Database();
     $student = new Student($db);
     $studentData = $student->read($id); // Implement the read method in the Student class
+    $studentDetails = new StudentDetails($db);
+    $studentDetailsData = $studentDetails->read($id);
 
     if ($studentData) {
         // The student data is retrieved, and you can pre-fill the edit form with this data.
@@ -29,6 +31,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'last_name' => $_POST['last_name'],
         'gender' => $_POST['gender'],
         'birthday' => $_POST['birthday'],
+        'student_id' => $_POST['student_id'],
+        'contact_number' => $_POST['contact_number'],
+        'street' => $_POST['street'],
+        'zip_code' => $_POST['zip_code'],
+        'town_city' => $_POST['town_city'],
+        'province' => $_POST['province'],
     ];
 
     $db = new Database();
@@ -74,13 +82,33 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         
         <label for="gender">Gender:</label>
         <select name="gender" id="gender">
+            <option value="" disabled selected>Select your gender</option>
             <option value="male" <?php echo $studentData['gender'] === 'male' ? 'selected' : ''; ?>>Male</option>
             <option value="female" <?php echo $studentData['gender'] === 'female' ? 'selected' : ''; ?>>Female</option>
         </select>
         
         <label for="birthday">Birthdate:</label>
         <input type="date" name="birthday" id="birthday" value="<?php echo $studentData['birthday']; ?>">
-        
+
+        <label for="student_id">Student ID:</label>
+        <input type="number" name="student_id" id="student_id" value="<?php echo $studentDetailsData['student_id']; ?>">
+
+        <label for="contact_number">Contact Number:</label>
+        <input type="number" name="contact_number" id="contact_number" value="<?php echo $studentDetailsData['contact_number']; ?>">
+
+        <label for="street">Street:</label>
+        <input type="text" name="street" id="street" value="<?php echo $studentDetailsData['street']; ?>">
+
+        <label for="zip_code">ZIP Code:</label>
+        <input type="number" name="zip_code" id="zip_code" value="<?php echo $studentDetailsData['zip_code']; ?>">
+
+        <label for="town_city">:</label>
+        <input type="text" name="town_city" id="town_city" value="<?php echo $studentDetailsData['town_city']; ?>">
+
+        <label for="province">:</label>
+        <input type="text" name="province" id="province" value="<?php echo $studentDetailsData['province']; ?>">
+
+
         <input type="submit" value="Update">
     </form>
     </div>

@@ -1,6 +1,6 @@
 <?php
-include_once("../db.php");
-include_once("../student.php");
+require_once("../db.php");
+require_once("../student.php");
 
 $db = new Database();
 $connection = $db->getConnection();
@@ -31,25 +31,40 @@ $student = new Student($db);
                 <th>Last Name</th>
                 <th>Gender</th>
                 <th>Birthdate</th>
+                <th>Student ID</th>
+                <th>Student Number</th>
+                <th>Contact Number</th>
+                <th>Street</th>
+                <th>Town City</th>
+                <th>Province</th>
+                <th>ZIP Code</th>
                 <th>Action</th>
             </tr>
         </thead>
         <tbody>
             <!-- You'll need to dynamically generate these rows with data from your database -->
-       
-            
-            
+    
             <?php
             $results = $student->displayAll(); 
+            
             foreach ($results as $result) {
             ?>
+            
             <tr>
+                <?php $birthday = new DateTime($result['birthday']); ?>
                 <td><?php echo $result['student_number']; ?></td>
                 <td><?php echo $result['first_name']; ?></td>
                 <td><?php echo $result['middle_name']; ?></td>
                 <td><?php echo $result['last_name']; ?></td>
-                <td><?php echo $result['gender']; ?></td>
-                <td><?php echo $result['birthday']; ?></td>
+                <td><?php echo $result['gender'] == 1 ? 'M' : 'F'; ?></td>
+                <td><?php echo $birthday->format('M j Y'); ?></td>
+                <td><?php echo $result['student_id']; ?></td>
+                <td><?php echo $result['student_number']; ?></td>
+                <td><?php echo $result['contact_number']; ?></td>
+                <td><?php echo $result['street']; ?></td>
+                <td><?php echo $result['town_city']; ?></td>
+                <td><?php echo $result['province']; ?></td>
+                <td><?php echo $result['zip_code']; ?></td>
                 <td>
                     <a href="student_edit.php?id=<?php echo $result['id']; ?>">Edit</a>
                     |
