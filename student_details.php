@@ -40,7 +40,7 @@ class StudentDetails {
         try {
             $connection = $this->db->getConnection();
 
-            $sql = "SELECT * FROM student_details WHERE id = :id";
+            $sql = "SELECT * FROM student_details WHERE student_id = :id";
             $stmt = $connection->prepare($sql);
             $stmt->bindValue(':id', $id);
             $stmt->execute();

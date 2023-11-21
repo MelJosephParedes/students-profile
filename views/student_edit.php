@@ -18,6 +18,11 @@ if (isset($_GET['id'])) {
     } else {
         echo "Student not found.";
     }
+    if($studentDetailsData){
+        // retrieved
+    } else {
+        echo "Student details not found";
+    }
 } else {
     echo "Student ID not provided.";
 }

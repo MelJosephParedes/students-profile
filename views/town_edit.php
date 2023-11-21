@@ -4,7 +4,6 @@ include_once("../town_city.php"); // Include the town_city class file
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
-
     // Fetch towncity data by ID from the database
     $db = new Database();
     $city = new TownCity($db);
