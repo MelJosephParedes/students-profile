@@ -69,7 +69,7 @@ class TownCity {
     public function update($id, $data) {
         try {
             $sql = "UPDATE town_city SET
-                    name = :name,
+                    name = :name
                     WHERE id = :id";
 
             $stmt = $this->db->getConnection()->prepare($sql);

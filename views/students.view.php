@@ -31,8 +31,6 @@ $student = new Student($db);
                 <th>Last Name</th>
                 <th>Gender</th>
                 <th>Birthdate</th>
-                <th>Student ID</th>
-                <th>Student Number</th>
                 <th>Contact Number</th>
                 <th>Street</th>
                 <th>Town City</th>
@@ -58,8 +56,6 @@ $student = new Student($db);
                 <td><?php echo $result['last_name']; ?></td>
                 <td><?php echo $result['gender'] == 1 ? 'M' : 'F'; ?></td>
                 <td><?php echo $birthday->format('M j Y'); ?></td>
-                <td><?php echo $result['student_id']; ?></td>
-                <td><?php echo $result['student_number']; ?></td>
                 <td><?php echo $result['contact_number']; ?></td>
                 <td><?php echo $result['street']; ?></td>
                 <td><?php echo $result['town_city']; ?></td>

@@ -36,7 +36,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'last_name' => $_POST['last_name'],
         'gender' => $_POST['gender'],
         'birthday' => $_POST['birthday'],
-        'student_id' => $_POST['student_id'],
         'contact_number' => $_POST['contact_number'],
         'street' => $_POST['street'],
         'zip_code' => $_POST['zip_code'],
@@ -51,7 +50,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($student->update($id, $data)) {
         echo "Record updated successfully.";
     } else {
-        echo "Failed to update the record.";
+        echo "Failed to update the record. test";
     }
 }
 ?>
@@ -86,33 +85,78 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input type="text" name="last_name" id="last_name" value="<?php echo $studentData['last_name']; ?>">
         
         <label for="gender">Gender:</label>
-        <select name="gender" id="gender">
-            <option value="" disabled selected>Select your gender</option>
-            <option value="male" <?php echo $studentData['gender'] === 'male' ? 'selected' : ''; ?>>Male</option>
-            <option value="female" <?php echo $studentData['gender'] === 'female' ? 'selected' : ''; ?>>Female</option>
-        </select>
+            <?php
+                $connection = $db->getConnection();
+                $sql = "SELECT id, gender FROM students WHERE id = :id";
+                $stmt = $connection->prepare($sql);
+                $stmt->bindValue(':id', $id);
+                $stmt->execute();
+                $studentGenders = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+                echo "<select name='gender' id='gender'>";
+                foreach ($studentGenders as $studentGender) {
+                $genderText = ($studentGender['gender'] == 1) ? 'Male' : 'Female';
+                $selected = ($studentGender['gender'] == $studentDetailsData['gender']) ? 'selected' : '';
+                echo "<option value='" . $studentGender['gender'] . "' $selected>" . $genderText . "</option>";
+                }
+                echo "</select>";
+            ?>
         
         <label for="birthday">Birthdate:</label>
         <input type="date" name="birthday" id="birthday" value="<?php echo $studentData['birthday']; ?>">
 
-        <label for="student_id">Student ID:</label>
-        <input type="number" name="student_id" id="student_id" value="<?php echo $studentDetailsData['student_id']; ?>">
-
         <label for="contact_number">Contact Number:</label>
-        <input type="number" name="contact_number" id="contact_number" value="<?php echo $studentDetailsData['contact_number']; ?>">
+        <input type="text" name="contact_number" id="contact_number" value="<?php echo $studentDetailsData['contact_number']; ?>">
 
         <label for="street">Street:</label>
         <input type="text" name="street" id="street" value="<?php echo $studentDetailsData['street']; ?>">
 
         <label for="zip_code">ZIP Code:</label>
-        <input type="number" name="zip_code" id="zip_code" value="<?php echo $studentDetailsData['zip_code']; ?>">
+        <input type="text" name="zip_code" id="zip_code" value="<?php echo $studentDetailsData['zip_code']; ?>">
 
-        <label for="town_city">:</label>
-        <input type="text" name="town_city" id="town_city" value="<?php echo $studentDetailsData['town_city']; ?>">
+        <label for="town_city">Town City:</label>
+            <?php
+                $connection = $db->getConnection();
+                $sql = "SELECT id, name FROM town_city WHERE id =".$studentDetailsData['town_city'];
+                $stmt = $connection->prepare($sql);
+                $stmt->execute();
+                $town_cities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo "<select name='town_city' id='town_city'>";
+                foreach ($town_cities as $town_city) {
+                    echo "<option value='" . $town_city['id'] . "'>" . $town_city['name'] . "</option>";
+                }
+                
+                $sql = "SELECT id, name FROM town_city";
+                $stmt = $connection->prepare($sql);
+                $stmt->execute();
+                $town_cities = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($town_cities as $town_city) {
+                    echo "<option value='" . $town_city['id'] . "'>" . $town_city['name'] . "</option>";
+                }
+                echo "</select>";
+            ?>
+        
+        <label for="province">Province:</label>
+            <?php
+                $connection = $db->getConnection();
+                $sql = "SELECT id, name FROM province WHERE id =". $studentDetailsData['province'];
+                $stmt = $connection->prepare($sql);
+                $stmt->execute();
+                $provinces = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                echo "<select name='province' id='province'>";
+                foreach ($provinces as $province) {
+                    echo "<option value='" . $province['id'] . "'>" . $province['name'] . "</option>";
+                }
 
-        <label for="province">:</label>
-        <input type="text" name="province" id="province" value="<?php echo $studentDetailsData['province']; ?>">
-
+                $sql = "SELECT id, name FROM province";
+                $stmt = $connection->prepare($sql);
+                $stmt->execute();
+                $provinces = $stmt->fetchAll(PDO::FETCH_ASSOC);
+                foreach ($provinces as $province) {
+                    echo "<option value='" . $province['id'] . "'>" . $province['name'] . "</option>";
+                }
+                echo "</select>";
+            ?>
 
         <input type="submit" value="Update">
     </form>

@@ -1,6 +1,7 @@
 <?php
 include_once("db.php"); // Include the file with the Database class
-
+include_once("province.php");
+include_once("town_city.php");
 class StudentDetails {
     private $db;
 
@@ -36,6 +37,37 @@ class StudentDetails {
         }
         
     }
+
+    public function update($id, $data) {
+        try {
+            $sql = "UPDATE student_details SET
+                    contact_number = :contact_number,
+                    street = :street,
+                    town_city = :town_city,
+                    province = :province,
+                    zip_code = :zip_code,
+                    WHERE student_id = :student_id";
+
+            $stmt = $this->db->getConnection()->prepare($sql);
+            // Bind parameters
+            $stmt->bindValue(':id', $data['student_id']);
+            $stmt->bindValue(':contact_number', $data['contact_number']);
+            $stmt->bindValue(':street', $data['street']);
+            $stmt->bindValue(':town_city', $data['town_city']);
+            $stmt->bindValue(':province', $data['province']);
+            $stmt->bindValue(':zip_code', $data['zip_code']);
+
+            // Execute the query
+            $stmt->execute();
+
+            return $stmt->rowCount() > 0;
+        } catch (PDOException $e) {
+            echo "Error: " . $e->getMessage();
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
+
+
     public function read($id) {
         try {
             $connection = $this->db->getConnection();
@@ -55,11 +87,11 @@ class StudentDetails {
         }
     }
 
-    public function delete($id) {
+    public function delete($student_id) {
         try {
-            $sql = "DELETE * FROM students_details WHERE id = :id";
+            $sql = "DELETE FROM student_details WHERE student_id = :student_id";
             $stmt = $this->db->getConnection()->prepare($sql);
-            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':student_id', $student_id);
             $stmt->execute();
 
             // Check if any rows were affected (record deleted)

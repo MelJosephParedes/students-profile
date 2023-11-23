@@ -92,7 +92,7 @@ class Student {
 
     public function delete($id) {
         try {
-            $sql = "DELETE * FROM students WHERE id = :id";
+            $sql = "DELETE FROM students WHERE id = :id";
             $stmt = $this->db->getConnection()->prepare($sql);
             $stmt->bindValue(':id', $id);
             $stmt->execute();
@@ -112,8 +112,12 @@ class Student {
     public function displayAll(){
         try {
             $sql = "SELECT students.id, students.student_number, students.first_name, students.last_name, students.middle_name, students.gender, students.birthday,
-                            student_details.student_id, student_details.contact_number, student_details.street, student_details.town_city, student_details.province, student_details.zip_code
-                            FROM students INNER JOIN student_details ON students.id = student_details.student_id LIMIT 10"; // Modify the table name to match your database
+            student_details.student_id, student_details.contact_number, student_details.street, town_city.name AS town_city, province.name AS province, student_details.zip_code
+            FROM students
+            INNER JOIN student_details ON students.id = student_details.student_id
+            INNER JOIN town_city ON student_details.town_city = town_city.id
+            INNER JOIN province ON student_details.province = province.id
+            LIMIT 10";// Modify the table name to match your database
             $stmt = $this->db->getConnection()->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

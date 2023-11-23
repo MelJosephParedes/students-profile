@@ -68,7 +68,7 @@ class Province {
     public function update($id, $data) {
         try {
             $sql = "UPDATE province SET
-                    name = :name,
+                    name = :name
                     WHERE id = :id";
 
             $stmt = $this->db->getConnection()->prepare($sql);
