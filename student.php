@@ -111,6 +111,7 @@ class Student {
 
     public function displayAll(){
         try {
+            
             $sql = "SELECT students.id, students.student_number, students.first_name, students.last_name, students.middle_name, students.gender, students.birthday,
             student_details.student_id, student_details.contact_number, student_details.street, town_city.name AS town_city, province.name AS province, student_details.zip_code
             FROM students
@@ -118,6 +119,66 @@ class Student {
             INNER JOIN town_city ON student_details.town_city = town_city.id
             INNER JOIN province ON student_details.province = province.id
             LIMIT 10";// Modify the table name to match your database
+            $stmt = $this->db->getConnection()->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            // Handle any potential errors here
+            echo "Error: " . $e->getMessage();
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
+
+    public function displayAllDemoReport(){
+        try {
+            
+            $sql = "SELECT students.id,students.first_name, students.last_name, students.middle_name, students.gender, students.birthday,
+            student_details.student_id, student_details.contact_number, student_details.street, town_city.name AS town_city, province.name AS province, student_details.zip_code
+            FROM students
+            INNER JOIN student_details ON students.id = student_details.student_id
+            INNER JOIN town_city ON student_details.town_city = town_city.id
+            INNER JOIN province ON student_details.province = province.id
+            LIMIT 10";// Modify the table name to match your database
+            $stmt = $this->db->getConnection()->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            // Handle any potential errors here
+            echo "Error: " . $e->getMessage();
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
+    public function displayAllProvinceEnroll(){
+        try {
+            
+            $sql = "SELECT province.name as province_name, COUNT(students.id) AS total_students, COUNT(DISTINCT student_details.town_city) AS total_town_cities
+            FROM students 	
+            JOIN student_details ON students.id = student_details.student_id
+            JOIN province ON student_details.province = province.id
+            GROUP BY province.name;";// Modify the table name to match your database
+            $stmt = $this->db->getConnection()->prepare($sql);
+            $stmt->execute();
+            $result = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            return $result;
+        } catch (PDOException $e) {
+            // Handle any potential errors here
+            echo "Error: " . $e->getMessage();
+            throw $e; // Re-throw the exception for higher-level handling
+        }
+    }
+    public function displayAllGenderCount(){
+        try {
+            
+            $sql = "SELECT province.name AS province_name,
+                    SUM(CASE WHEN students.gender = 1 THEN 1 ELSE 0 END) AS male_count,
+                    SUM(CASE WHEN students.gender = 0 THEN 1 ELSE 0 END) AS female_count
+            FROM students 
+            JOIN student_details ON students.id = student_details.student_id
+            JOIN province ON student_details.province = province.id
+            GROUP BY province.name
+            ORDER BY province.name;";// Modify the table name to match your database
             $stmt = $this->db->getConnection()->prepare($sql);
             $stmt->execute();
             $result = $stmt->fetchAll(PDO::FETCH_ASSOC);

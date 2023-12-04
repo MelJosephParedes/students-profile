@@ -23,7 +23,7 @@ class Province {
     public function create($data) {
         try {
             // Prepare the SQL INSERT statement
-            $sql = "INSERT INTO province(name) VALUES(:name;";
+            $sql = "INSERT INTO province(name) VALUES(:name);";
             $stmt = $this->db->getConnection()->prepare($sql);
 
             // Bind values to placeholders
@@ -106,6 +106,6 @@ class Province {
         }
     }
 
-
+    
 }
 ?>

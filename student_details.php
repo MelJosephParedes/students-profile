@@ -45,12 +45,12 @@ class StudentDetails {
                     street = :street,
                     town_city = :town_city,
                     province = :province,
-                    zip_code = :zip_code,
+                    zip_code = :zip_code
                     WHERE student_id = :student_id";
 
             $stmt = $this->db->getConnection()->prepare($sql);
             // Bind parameters
-            $stmt->bindValue(':id', $data['student_id']);
+            $stmt->bindValue(':student_id', $data['student_id']);
             $stmt->bindValue(':contact_number', $data['contact_number']);
             $stmt->bindValue(':street', $data['street']);
             $stmt->bindValue(':town_city', $data['town_city']);
@@ -72,9 +72,9 @@ class StudentDetails {
         try {
             $connection = $this->db->getConnection();
 
-            $sql = "SELECT * FROM student_details WHERE student_id = :id";
+            $sql = "SELECT * FROM student_details WHERE student_id = :student_id";
             $stmt = $connection->prepare($sql);
-            $stmt->bindValue(':id', $id);
+            $stmt->bindValue(':student_id', $id);
             $stmt->execute();
 
             // Fetch the student data as an associative array

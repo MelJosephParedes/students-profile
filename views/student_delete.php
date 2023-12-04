@@ -13,7 +13,7 @@ if ($_SERVER["REQUEST_METHOD"] == "GET" ){
 
 
     // Call the delete method to delete the student record
-    if ($student->delete($id) || $student_details->delete($id)) {
+    if ($student->delete($id) && $student_details->delete($id)) {
         echo "Record deleted successfully.";
     } else {
         echo "Failed to delete the record.";

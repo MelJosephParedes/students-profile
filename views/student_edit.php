@@ -5,6 +5,7 @@ include_once("../student_details.php");
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
+    
 
     // Fetch student data by ID from the database
     $db = new Database();
@@ -36,6 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         'last_name' => $_POST['last_name'],
         'gender' => $_POST['gender'],
         'birthday' => $_POST['birthday'],
+        'student_id' => $_POST['id'],
         'contact_number' => $_POST['contact_number'],
         'street' => $_POST['street'],
         'zip_code' => $_POST['zip_code'],
@@ -45,13 +47,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $db = new Database();
     $student = new Student($db);
-
+    $studentDetails = new StudentDetails($db);
     // Call the edit method to update the student data
+    try {
     if ($student->update($id, $data)) {
-        echo "Record updated successfully.";
+        if ($studentDetails->update($id, $data)){
+            echo "Record updated successfully.";
+        } else {
+            echo "Failed to update the student_details.";
+        }
+    
     } else {
         echo "Failed to update the record. test";
-    }
+    } 
+    } catch (PDOException $e){
+        echo "Database Error:" . $e->getMessage();
+    } 
 }
 ?>
 <!DOCTYPE html>
